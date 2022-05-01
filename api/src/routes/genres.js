@@ -6,7 +6,7 @@ const genresRouter = express.Router();
 
 
 
-genresRouter.get('/:genres', getGenres);
+genresRouter.get('/', getGenres)
 
 
 module.exports=genresRouter;

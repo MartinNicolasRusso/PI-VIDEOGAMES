@@ -18,4 +18,6 @@ const getGenres = async (req,res) => {
 
 module.exports = {
     getGenres,
+    getDbGenres,
+    getGamesGenres,
 }

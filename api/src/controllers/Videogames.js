@@ -1,6 +1,6 @@
 const { Videogame, Genres} = require ('../db');
 const { getDbInfo,getAllGames,getOneGame} = require('./utils');
-const { default: axios } = require('axios');
+const axios = require ('axios')
 
 
 const getVideogame = async (req,res) => {
@@ -8,7 +8,8 @@ const getVideogame = async (req,res) => {
         const {name} = req.query;
         let videogames = await getAllGames();
         if(name){
-            let videogame = await videogames.filter(e=>e.name.toLowerCase().includes(name.toLowerCase()));
+            let videogame = await videogames.filter(e=>e.name.toLowerCase().includes(name.toLowerCase()))
+            .slice(0, 16);
             videogame.length ?
             res.status(200).send(videogame) :
             res.status(404).send('Video game not found.');

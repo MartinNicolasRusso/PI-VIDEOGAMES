@@ -7,7 +7,7 @@ const getApiInfo = async () => {
     try {
       const games = [];
       let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
-      for (let i = 1; i < 15; i++) {
+      for (let i = 1; i < 8; i++) {
         let pages = await axios.get(url);
         pages.data?.results.forEach((e) => {
           games.push({
@@ -77,7 +77,7 @@ const getOneGame = async (id) => {
         background_image: game.data.background_image,
         rating: game.data.rating,
         genres: game.data.genres.map((gender) => gender.name),
-        platforms: game.data.platforms.map((platform) => platform.platform.name),
+        platforms: game.data.parent_platforms.map((p) => p.platform.name),
       }
       return gameId
     }catch (error){
@@ -87,16 +87,15 @@ const getOneGame = async (id) => {
 
 const getGamesGenres = async () => {
     try {
-     const genresApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);
+     const genresApi = await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`);  
      const genres = genresApi.data.results.map((g) => {
        return {name: g.name}
-      });
-
-     let getAllGenres = await Genres.findAll();
-     if(getAllGenres.length === 0 ){
-       await Genres.bulkCreate(genres);
-     }
-    
+       });
+      let getAllGenres = await Genres.findAll();
+        if(getAllGenres.length === 0 ){
+         await Genres.bulkCreate(genres);
+       }
+      
     }catch (error){
       console.log(error);
     };
@@ -104,8 +103,8 @@ const getGamesGenres = async () => {
 
 const getDbGenres = async () => {
     try {
-      let genresDb = await Genres.findAll();
-      genresDb = genresDb.map((g)=> g.toJSON());
+       let genresDb = await Genres.findAll();
+       genresDb = genresDb.map((g)=> g.toJSON());
       return genresDb;
     } catch (error){
       console.log(error);
