@@ -1,0 +1,49 @@
+.container-404{
+background-image: url(https://cdn.wallpapersafari.com/46/30/bYpsCa.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-position: fixed;
+background-attachment: fixed;
+width: 100vmax;
+height: 100vh;
+position: absolute;
+}
+
+.img-404{
+    background-repeat: no-repeat;
+    opacity: 50%;
+   background-size: cover;
+   background-position: fixed;
+   background-attachment: fixed;
+   width: 100vmax;
+   height: 100vh;
+   position: absolute;
+}
+.container-btn-404{
+    display: block;
+    text-align: center;
+    margin-top: 31%;
+}
+.btn-404{
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #29c223;
+    border: none;
+    text-align: center;
+    font-size: 25px;
+    padding: 15px;
+    width: 200px;
+    color: #FFFFFF;
+    
+}
+.write-404{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: block;
+    text-align: center;
+    margin-top: 52px;
+    justify-content: center;
+    color: #FFFFFF;
+    font-size: 54px;
+
+}

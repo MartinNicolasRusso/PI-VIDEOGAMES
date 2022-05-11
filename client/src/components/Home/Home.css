@@ -1,0 +1,51 @@
+body{
+    background-image: url(https://wallpaper.dog/large/17179229.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: fixed;
+    background-attachment: fixed;
+    width: 100vmax;
+    height: 100vh;
+    position: absolute;
+}
+.container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 75px;
+    gap: 100px
+}
+  
+  .Pag-div{
+    display: flex;
+    justify-content: center;
+  }
+  .container-filters{
+    display: inline-block;
+    text-align: center;
+   
+  }
+  .loading {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .loading:after {
+    justify-content: center;
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    border-color: #fff transparent #fff transparent;
+    animation: loading 1.2s linear infinite;
+  }
+  @keyframes loading {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

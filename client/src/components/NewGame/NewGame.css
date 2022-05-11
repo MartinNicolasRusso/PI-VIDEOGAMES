@@ -1,0 +1,57 @@
+.container-all{
+border-radius: 5px;
+  background-color: rgba(156, 0, 0, 0.151);
+  margin: 1.5% 5% 5% 5%;
+  display: fixed;
+  flex-direction: column;
+}
+.Backgroundd{
+background-image: url(https://www.muycomputer.com/wp-content/uploads/2022/03/juegos-en-el-lanzamiento.jpg);
+background-repeat: no-repeat;
+background-size: cover;
+background-position: fixed;
+background-attachment: fixed;
+width: 100vmax;
+height: 100vh;
+position: absolute;
+}
+
+.div-title{
+    
+    color: white;
+}
+.div-name{
+    color: white;
+}
+
+.div-genres{
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
+.div-platforms{
+    color: white;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+}
+.div-rating{
+    color: white;
+}
+.div-description{
+    color: white;
+}
+.div-platforms{
+    color: white;
+}
+.gen{
+    color: white;
+}
+.plat{
+    color: white;
+}
+.div-released{
+    color: white;
+}
+.div-img{
+    color:white;
+}

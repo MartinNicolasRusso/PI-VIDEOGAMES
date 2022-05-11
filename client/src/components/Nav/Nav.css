@@ -1,0 +1,45 @@
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li{
+  float: left;
+}
+
+li a {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  display: flex;
+  color: white;
+  text-align: center;
+  padding: 24px 18px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+  color: white;
+}
+.Searchbar{
+  display: flex;
+  padding-left: 280px;
+  float: center;
+}
+.About{
+  display: block;
+  float: right;
+  padding-right: 15px;
+}
+.Intro{
+  display: flex;
+  font-size: 18px;
+}

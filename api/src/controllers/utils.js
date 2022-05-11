@@ -6,11 +6,12 @@ const { API_KEY } = process.env;
 const getApiInfo = async () => {
     try {
       const games = [];
-      let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
+      let url = `https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`;
       for (let i = 1; i < 8; i++) {
         let pages = await axios.get(url);
         pages.data?.results.forEach((e) => {
           games.push({
+            createdVideogame: false,
             id: e.id,
             name: e.name,
             background_image: e.background_image,
@@ -40,7 +41,7 @@ const getDbInfo = async () => {
         },
       });
    
-      let newdatagame = dbData.map((e) => {
+      let dbGame = dbData.map((e) => {
         return {
           id: e.id,
           name: e.name,
@@ -49,11 +50,11 @@ const getDbInfo = async () => {
           genres: e.genres.map((e) => e.name),
           description: e.description,
           released: e.released,
-          createdVideoGame: e.createdVideoGame,
+          createdVideoGame: true,
           plataforms: e.plataforms,
         };
       });
-      return newdatagame;
+      return dbGame;
    
    
     }catch (error){
@@ -61,12 +62,12 @@ const getDbInfo = async () => {
     }
 };
 
-const getAllGames = async () => {
-      const apiInfo = await getApiInfo();
-      const dbInfo = await getDbInfo();
-      const totalInfo = apiInfo.concat(dbInfo);
-      return totalInfo
-};
+ const getAllGames = async () => {
+       const apiInfo = await getApiInfo();
+       const dbInfo = await getDbInfo();       
+       const totalInfo = apiInfo.concat(dbInfo);
+       return totalInfo
+ };
   
 const getOneGame = async (id) => {
     try {
@@ -75,10 +76,13 @@ const getOneGame = async (id) => {
         id: game.data.id,
         name: game.data.name,
         background_image: game.data.background_image,
+        released: game.data.released,
+        description: game.data.description,
         rating: game.data.rating,
-        genres: game.data.genres.map((gender) => gender.name),
+        genres: game.data.genres.map((genre) => genre.name),
         platforms: game.data.parent_platforms.map((p) => p.platform.name),
       }
+      console.log(gameId)
       return gameId
     }catch (error){
           console.log(error);

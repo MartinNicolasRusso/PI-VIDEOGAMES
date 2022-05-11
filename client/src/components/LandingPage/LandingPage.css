@@ -1,0 +1,67 @@
+.background{
+   background-image: url(https://images7.alphacoders.com/106/1065467.png);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-position: fixed;
+   background-attachment: fixed;
+   width: 100vmax;
+   height: 100vh;
+   position: absolute;
+}
+.welcome{
+  color: #FFFFFF;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+.box-welcome{
+  display: flex;
+  justify-content: center;
+  border-radius: 30px;
+  background-color:rgb(7, 7, 41);
+  opacity: 70%;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 30px;
+  width: 1000px;
+  margin: 15px 170px 15px;
+}
+.button {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #ce4a1e;
+  opacity: 70%;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 20px;
+  padding: 15px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 50px 580px 15px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '!!';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 15px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}

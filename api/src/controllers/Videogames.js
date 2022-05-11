@@ -25,12 +25,14 @@ const getVideogame = async (req,res) => {
 const getGamebyId = async (req,res) => {
         try {
         const { id } = req.params;
-            if (id ) {
-            const gameId = await getOneGame(id);
+        if (id.length > 7 && typeof id === "string") {
+                console.log(id)
+                let dbGame = await getDbInfo();
+                let gameId = await dbGame.filter((e)=>e.id === id);
             res.status(200).send(gameId);
-            }else {
-                const dbGame = await getDbInfo();
-                const gameId = await dbGame.filter((e)=>e.id === id);
+        }else {
+            console.log('2')
+                 const gameId = await getOneGame(id);
                 return gameId
                 ? res.status(200).send(gameId) :
                 res.status(400).send('Video game not found')
@@ -88,53 +90,8 @@ const postVideogame = async (req,res) => {
     };
 };
 
-const deleteGame = async (req,res) => {
-    try {
-        const { id } = req.params;
-        const gamedelete= await Videogame.findByPk(id);
-        if(gamedelete){
-            await gamedelete.destroy();
-            return res.status(200).send('Video Game was delete')
-        }
-        res.status(400).send('Video Game not found');
-    } catch (error) {
-        console.log(error)
-    }
-};
-
-const putGame = async (req,res) => {
-    try {
-        const {id} = req.params;
-        const gameupdid = await Videogame.findOne({
-            where:{
-                id: id,
-            }
-        });
-        await gameupdid.update({
-            name: req.body.name,
-            rating: req.body.rating,
-            released: req.body.released,
-            description: req.body.description,
-            platforms: req.body.platforms,
-        });
-        req.body.genres.forEach(async (e)=>{
-            let genreDb = await Genres.findAll({
-                where: {
-                    name: e,
-                }
-            });
-            await gameupdid.setGenres(genreDb)
-        });
-        res.status(200).send(gameupdid);
-    } catch (error) {
-        console.log(error)
-    }
-};
-
 module.exports= {
     getVideogame,
     getGamebyId,
     postVideogame,
-    deleteGame,
-    putGame,
 };
