@@ -1,13 +1,17 @@
 import React,{useState,useEffect} from "react";
-import { Link} from "react-router-dom";
-import { createGame, getGenres} from "../../actions";
+import { Link, useParams} from "react-router-dom";
+import { createGame, getGenres, updateGame, getGameById} from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import '../NewGame/NewGame.css'
 
 export default function GameCreate(){
     const dispatch= useDispatch();
+    let {id}= useParams()
     const genres= useSelector(( state)=> state.genres)
+    const gameupdate = useSelector((state)=> state.gamescopy)
+    const [updated, setUpdated] = useState(false) 
     const [validator, setValidator] = useState('')
+
     const[input, setInput]= useState({
     name:'',
     description:'',
@@ -21,7 +25,8 @@ export default function GameCreate(){
 
     useEffect(()=>{
         dispatch(getGenres());
-    },[dispatch]);
+        id && dispatch(getGameById(id))
+    },[dispatch, id]);
 
     function handleChange(e){
         e.preventDefault();
@@ -31,13 +36,13 @@ export default function GameCreate(){
         })
         
     }
-    function handleRating(e){
+    // function handleRating(e){
 
-        setInput({
-            ...input,
-            rating: parseInt(e.target.value)
-        })
-    }
+    //     setInput({
+    //         ...input,
+    //         rating: parseInt(e.target.value)
+    //     })
+    // }
     function handleGenres(e){
          setInput({
             ...input,
@@ -47,11 +52,11 @@ export default function GameCreate(){
     }
     function handlePlatforms(e){
         setInput({
-            ...input,
-            platforms: input.platforms.includes(e.target.value) ? input.platforms.filter(el => el !== e.target.value) 
-            : input.platforms.concat(e.target.value)
-        })
-        console.log(input)
+             ...input,
+             platforms: input.platforms.includes(e.target.value) ? input.platforms.filter(el => el !== e.target.value) 
+             : input.platforms.concat(e.target.value)
+         })
+         console.log(input)
     }
     const handleInput= (e)=>{
         e.preventDefault();
@@ -62,17 +67,22 @@ export default function GameCreate(){
     } else if (!input.released) {
         setValidator("Date released is required");
     } else if (
-        !input.rating &&
-      (input.rating < 6 || input.rating > 0)
+        !input.rating && ( input.rating < 6 || input.rating > 0 )
     ) {
         setValidator("Rating must be between 1 and 5");
-    } else if (!input.platforms) {
+    } else if (input.platforms.length === 0) {
         setValidator("Select at least 1 platform");
-    } else if (!input.genres) {
+    } else if (input.genres.length === 0) {
       setValidator("Select at least 1 genre");
     } else {
-       dispatch(createGame(input));
-     alert("Video Game created Succesfully");
+        if(input.name){
+            if(!id){
+                dispatch(createGame(input));
+                alert("Video Game created Succesfully");
+            } else{
+                dispatch(updateGame(id, input))
+                alert('Game modified successfully');
+            }
       }
       setValidator("");
       setInput({
@@ -84,20 +94,43 @@ export default function GameCreate(){
         platforms: [],
         genres: [],
       });
+      
+    }
   }
+
+  if(id && gameupdate.name && !updated) {
+    setInput ({
+        ...input,
+        name: gameupdate.name,
+        description: gameupdate.description,
+        released: gameupdate.released,
+        rating: gameupdate.rating,
+        platforms: gameupdate.platforms,
+        background_image: gameupdate.background_image,
+        genres: gameupdate.genres,
+    })
+    setInput(!updated)
+};
 
 
 
     return(
         <div className="Backgroundd">
-            <Link to='/home/'><button>Back</button></Link> 
+            <Link to='/home'><button>Back</button></Link> 
             <div className="container-all">
+            {id ? (
+                <div>
+                    <h1>Update your Game!</h1>
+                </div>
+            ):(
+
             <div className="div-title">
                 <h1>Create VideoGame!</h1>
             </div>
+            )}
 
             
-            {validator && <div className="validators">{validator}</div>}
+            {validator && <div className="validator">{validator}</div>}
             <form onSubmit={(e)=>handleInput(e)}>
                 <div className="div-name">
                     <label>Name:</label>
@@ -117,7 +150,7 @@ export default function GameCreate(){
                     placeholder="Game Rate"
                     name="rating"
                     value={input.rating}
-                    onChange={(e)=>handleRating(e)}/>
+                    onChange={(e)=>handleChange(e)}/>
                 </div>
                 <div className="div-released">
                     <label>Released:</label>

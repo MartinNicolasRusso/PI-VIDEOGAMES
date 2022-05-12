@@ -26,8 +26,7 @@ const Home = () => {
     const { gamescopy, genres} = useSelector((store) => store);
     const currentGame= gamescopy.slice(firstGameIndex, lastGameIndex);
 
-    
-
+  
     const pageHandler= (page)=>{
         setCurrentPage(page);
     }
@@ -35,6 +34,17 @@ const Home = () => {
         setCurrentPage(1)
     }
   
+    const nextPage=()=>{
+        if(currentPage < Math.ceil(gamescopy.length/ gamesPerPage)){
+            setCurrentPage(currentPage + 1);
+        }
+        console.log(currentPage)
+    }
+    const prevPage=()=>{
+        if(currentPage - 1 !==0){
+            setCurrentPage(currentPage - 1);
+        }
+    }
     useEffect(()=>{
       dispatch(getVideoGames());
       dispatch(getGenres());
@@ -117,11 +127,13 @@ const Home = () => {
                 </select>
             </div>
             <div className='Pag-div'>
+                <button onClick={prevPage}>PREV</button>
                 <Pagination 
                 gamesPerPage={gamesPerPage}
                 gamesTotal={gamescopy.length}
                 onSetPage={pageHandler}
                 />
+                <button onClick={nextPage}>NEXT</button>
             </div>
             <div>
                 <div className='container'>

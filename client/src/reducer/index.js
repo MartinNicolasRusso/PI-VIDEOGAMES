@@ -36,6 +36,19 @@ const rootReducer = (state = initialState, action) => {
         return {
           ...state,
         };
+      case 'UPDATE_GAME':
+        return{
+          ...state,
+        };
+      case 'DELETE_GAME':
+        return{
+          ...state,
+        };
+      case 'CLEAR_STATE':
+        return {
+          ...state,
+          detail:{},
+        };
       case 'ORDER_BY_ALPHABET':
         const orderGames =
           action.payload === "A-Z"

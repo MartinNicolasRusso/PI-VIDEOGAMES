@@ -60,6 +60,31 @@ export function createGame(payload) {
   };
 }
 
+export const deleteGame = (id) => {
+  return async function(dispatch){
+      try{
+          await axios.delete(`http://localhost:3001/videogames/${id}`)
+          return dispatch({
+              type: 'DELETE_GAME',
+          })
+      }catch(err){
+          console.log(err)
+      }
+  }
+}
+
+export const updateGame = (id, data) => {
+  return async function(dispatch){
+      try{
+          await axios.put(`http://localhost:3001/videogames/${id}`, data);
+          return dispatch({
+              type: 'UPDATE_GAME'
+          })
+      }catch(err){
+          console.log(err);
+      }
+  }
+}
 
 export function filterGamesByGenres(payload) {
   return {
@@ -88,10 +113,10 @@ export function orderByRating(payload) {
     payload,
   };
 }
-// export function resetDetailPage() {
-//   //reset para la pagina de detail
-//   return {
-//     type: types.resetgame,
-//   };
-// }
+ export function resetDetailPage() {
+   
+   return {
+     type: 'CLEAR_STATE',
+   };
+ }
 

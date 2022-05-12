@@ -1,7 +1,7 @@
 import {React, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {  getGameById } from '../../actions';
-import { useParams} from 'react-router-dom';
+import {  getGameById, resetDetailPage, deleteGame, updateGame } from '../../actions';
+import { Link, useNavigate, useParams} from 'react-router-dom';
 import NavBar from '../Nav/NavBar'
 import '../GameDetail/GameDetail.css'
 
@@ -10,18 +10,38 @@ const Details = ()=>{
   let {id} = useParams();
   const dispatch= useDispatch();
   const game = useSelector((state)=> state.detail);
-  
+  const navigate= useNavigate();
+
   useEffect(()=>{
     dispatch(getGameById(id));
+
+    return ()=>{
+      dispatch(resetDetailPage())
+    }
   },[dispatch,id]);
 
-
-
+const handleDelete = ()=>{
+  dispatch(deleteGame(id))
+  console.log(id)
+  navigate('/home')
+  alert('Game delete')
+}
+const handleUpdate = () => {
+  dispatch(updateGame(id));
+  console.log(id)
+  navigate(`/updategame/${id}`);
+};
  
   return game.length > 0 ? (
     <div>
         <div>
           <NavBar/>
+        </div>
+        <div>
+            <button onClick={handleDelete}> DELETE</button>
+            <Link to={`/updategame/${id}`}>
+                <button onClick={handleUpdate}>UPDATE</button>
+            </Link>
         </div>
         <div className='container-'> 
             <img className='bck-img' src={game[0].background_image} width='430px' height='220px' alt={game.name} />
@@ -51,8 +71,6 @@ const Details = ()=>{
             <p dangerouslySetInnerHTML={{ __html: game.description }}/>
             </div>
   )
-  
-
 };
 
 export default Details

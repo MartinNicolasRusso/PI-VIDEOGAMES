@@ -55,3 +55,8 @@ position: absolute;
 .div-img{
     color:white;
 }
+.validator{
+    color: white;
+    font-size: 19px;
+    font-family: 'Courier New', Courier, monospace;
+}

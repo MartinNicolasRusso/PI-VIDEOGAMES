@@ -13,6 +13,7 @@ function App() {
       <Route path='/home' element={<Home/>}/>
        <Route path='/home/:id' element={<GameDetail/>}/>
        <Route path='/create' element= {<NewGame/>}/> 
+       <Route path= '/updategame/:id' element= {<NewGame/>}/>
        <Route path='*' element={<Page404/>}/>
     </Routes>
   </BrowserRouter>

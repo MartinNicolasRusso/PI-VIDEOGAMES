@@ -90,8 +90,54 @@ const postVideogame = async (req,res) => {
     };
 };
 
+const deleteGame = async (req,res) => {
+    try {
+        const { id } = req.params;
+        const gamedelete= await Videogame.findByPk(id);
+        if(gamedelete){
+            await gamedelete.destroy();
+            return res.status(200).send('Video Game was delete')
+        }
+        res.status(400).send('Video Game not found');
+    } catch (error) {
+        console.log(error)
+    }
+};
+
+const putGame = async (req,res) => {
+    try {
+        const {id} = req.params;
+        const gameupdid = await Videogame.findOne({
+            where:{
+                id: id,
+            }
+        });
+        await gameupdid.update({
+            name: req.body.name,
+            rating: req.body.rating,
+            released: req.body.released,
+            description: req.body.description,
+            platforms: req.body.platforms,
+        });
+        req.body.genres.forEach(async (e)=>{
+            let genreDb = await Genres.findAll({
+                where: {
+                    name: e,
+                }
+            });
+            await gameupdid.setGenres(genreDb)
+        });
+        res.status(200).send(gameupdid);
+    } catch (error) {
+        console.log(error)
+    }
+};
+ 
+
 module.exports= {
     getVideogame,
     getGamebyId,
     postVideogame,
+    putGame,
+    deleteGame,
 };
