@@ -7,7 +7,7 @@ import {
     filterDBGames,
     orderByAlphabet,
     orderByRating,
-
+    
 } from '../../actions';
 import Pagination from './Pagination/Pagination';
 import CardGame from '../CardGame/CardGame';
@@ -38,7 +38,6 @@ const Home = () => {
         if(currentPage < Math.ceil(gamescopy.length/ gamesPerPage)){
             setCurrentPage(currentPage + 1);
         }
-        console.log(currentPage)
     }
     const prevPage=()=>{
         if(currentPage - 1 !==0){
@@ -82,22 +81,19 @@ const Home = () => {
     return(
         <div>
             <div onChange={()=>{setPageOne()}}><NavBar/></div>
-         <div >
+         <div className='filters-container'>
+           <div>
            <h1>Video Games APP</h1>
-           <div className='container-filters'>
+           </div>
                 <button className='Refresh' onClick={HandleReload}>
                     Refresh
                 </button>
-           </div>
-            <div className='container-filters'>
           <select className="select" onChange={(e)=>{HandleOrderName(e)}} >
           <optgroup className="optionGroup" label="Alphabetic">
                     <option className="option" value="A-Z">A - Z</option>
                     <option className="option" value="Z-A">Z - A</option>
             </optgroup>  
           </select>
-            </div>
-          <div className='container-filters'>
              <select  onChange={(e) => {HandleFilterByGenres(e)}}>
             <option  hidden>
               Genres
@@ -110,22 +106,17 @@ const Home = () => {
               );
             })}
           </select> 
-          </div>
-          
-            <div className='container-filters'>
                 <select onChange={(e)=>{HandleOrderRating(e)}}>
                     <option hidden>Rating</option>
                     <option value='Max-Min'>Max - Min</option>
                     <option value='Min-Max'>Min - Max</option>
                 </select>
-            </div>
-            <div className='container-filters'>
                 <select onChange={e=>{HandleFilterDB(e)}}>
                     <option value='All'>All</option>
                     <option value='DB'>Games Added</option>
                     <option value='API'>Existent</option>
                 </select>
-            </div>
+                </div>   
             <div className='Pag-div'>
                 <button onClick={prevPage}>PREV</button>
                 <Pagination 
@@ -147,20 +138,23 @@ const Home = () => {
                         background_image={e.background_image}
                         genres={e.genres}
                         rating={e.rating}/>
-                    )})
-                 ) : (<div className="loading"></div>)} 
+                        )})
+                        ) : (<div className='container-load'>
+                     <div className="loading"></div>
+                     </div>)} 
                 </div>
 
             </div>
 
             <div className='Pag-div'>
+                <button onClick={prevPage}>PREV</button>
                 <Pagination 
                 gamesPerPage={gamesPerPage}
                 gamesTotal={gamescopy.length}
                 onSetPage={pageHandler}
                 />
+                <button onClick={nextPage}>NEXT</button>
             </div>
-        </div>   
 
 
         </div>

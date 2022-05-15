@@ -36,13 +36,6 @@ export default function GameCreate(){
         })
         
     }
-    // function handleRating(e){
-
-    //     setInput({
-    //         ...input,
-    //         rating: parseInt(e.target.value)
-    //     })
-    // }
     function handleGenres(e){
          setInput({
             ...input,
@@ -56,7 +49,6 @@ export default function GameCreate(){
              platforms: input.platforms.includes(e.target.value) ? input.platforms.filter(el => el !== e.target.value) 
              : input.platforms.concat(e.target.value)
          })
-         console.log(input)
     }
     const handleInput= (e)=>{
         e.preventDefault();

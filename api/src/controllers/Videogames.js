@@ -26,12 +26,12 @@ const getGamebyId = async (req,res) => {
         try {
         const { id } = req.params;
         if (id.length > 7 && typeof id === "string") {
-                console.log(id)
+                (id)
                 let dbGame = await getDbInfo();
                 let gameId = await dbGame.filter((e)=>e.id === id);
             res.status(200).send(gameId);
         }else {
-            console.log('2')
+            ('2')
                  const gameId = await getOneGame(id);
                 return gameId
                 ? res.status(200).send(gameId) :
@@ -44,7 +44,6 @@ const getGamebyId = async (req,res) => {
 };
 
 const postVideogame = async (req,res) => {
-    console.log("1")
      try {
          const {
             name,
@@ -56,11 +55,9 @@ const postVideogame = async (req,res) => {
             platforms,
             createdVideoGame,
         }= req.body;
-        console.log("2")
         if (!name || !description || !platforms || !genres) {
             res.status(400).send('Missing data')
         }
-        console.log("3")
         let newGame = await Videogame?.create({
             name,
             background_image:
@@ -72,9 +69,7 @@ const postVideogame = async (req,res) => {
             platforms,
             createdVideoGame,
         })
-        console.log("4")
         genres.forEach(async (e) => {
-         console.log(e);
             let genreDb = await Genres.findAll({
                 where:{
                     name: e
@@ -82,7 +77,6 @@ const postVideogame = async (req,res) => {
             })
          await newGame.addGenres(genreDb);
         })
-        console.log(newGame);
         res.status(200).json(newGame);
     } catch (error) {
         console.log(error)
@@ -99,7 +93,7 @@ const deleteGame = async (req,res) => {
             return res.status(200).send('Video Game was delete')
         }
         res.status(400).send('Video Game not found');
-    } catch (error) {
+    } catch(error) {
         console.log(error)
     }
 };

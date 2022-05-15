@@ -11,7 +11,7 @@ const getGenres = async (req,res) => {
             }
         });
         res.status(200).send(genres)
-    } catch (error) {
+    } catch(error) {
         res.status(400).send({errorMsg: error})
     }
 };

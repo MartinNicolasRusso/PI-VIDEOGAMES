@@ -6,18 +6,18 @@ const { API_KEY } = process.env;
 const getApiInfo = async () => {
     try {
       const games = [];
-      let url = `https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`;
+      let url = `https://api.rawg.io/api/games?key=${API_KEY}`;
       for (let i = 1; i < 8; i++) {
         let pages = await axios.get(url);
         pages.data?.results.forEach((e) => {
           games.push({
-            createdVideogame: false,
             id: e.id,
             name: e.name,
             background_image: e.background_image,
             rating: e.rating,
             genres: e.genres.map((gender) => gender.name),
             platforms: e.platforms.map((platform) => platform.platform.name),
+            createdVideogame: false,
           });
         });
          url = pages.data.next;
@@ -57,7 +57,7 @@ const getDbInfo = async () => {
       return dbGame;
    
    
-    }catch (error){
+    }catch(error){
       console.log(error);
     }
 };
@@ -82,9 +82,8 @@ const getOneGame = async (id) => {
         genres: game.data.genres.map((genre) => genre.name),
         platforms: game.data.parent_platforms.map((p) => p.platform.name),
       }
-      console.log(gameId)
       return gameId
-    }catch (error){
+    }catch(error){
           console.log(error);
         }
 };
@@ -99,7 +98,6 @@ const getGamesGenres = async () => {
         if(getAllGenres.length === 0 ){
          await Genres.bulkCreate(genres);
        }
-      
     }catch (error){
       console.log(error);
     };

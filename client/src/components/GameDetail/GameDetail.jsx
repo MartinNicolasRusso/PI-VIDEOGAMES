@@ -21,14 +21,12 @@ const Details = ()=>{
   },[dispatch,id]);
 
 const handleDelete = ()=>{
-  dispatch(deleteGame(id))
-  console.log(id)
-  navigate('/home')
-  alert('Game delete')
-}
+  dispatch(deleteGame(id));
+  navigate('/home');
+  alert('Game delete');
+};
 const handleUpdate = () => {
   dispatch(updateGame(id));
-  console.log(id)
   navigate(`/updategame/${id}`);
 };
  

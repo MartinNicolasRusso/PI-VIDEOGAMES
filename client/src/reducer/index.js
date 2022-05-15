@@ -19,7 +19,6 @@ const rootReducer = (state = initialState, action) => {
           gamescopy: action.payload,
         };
       case 'SEARCH_BY_ID':
-      console.log(action.payload)  
       return {
           ...state,
           detail: action.payload,
@@ -88,12 +87,10 @@ const rootReducer = (state = initialState, action) => {
   
       case 'FILTER_DB_GAMES':
         const allGames = state.videogames;
-        console.log('1',action.payload);
         const filterCreatedGames =
           action.payload === "DB"
             ? allGames.filter((e) => e.createdVideoGame === true)
             : allGames.filter((e) => e.createdVideoGame !== true);
-          console.log('2',filterCreatedGames)
             return {
           ...state,
           gamescopy: 

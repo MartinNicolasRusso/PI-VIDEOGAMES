@@ -29,7 +29,6 @@ export function getGameById(id) {
   return async function (dispatch) {
     try {
       let gameId = await axios.get('/videogames/'+ id);
-      console.log(gameId)
       return dispatch({
         type: 'SEARCH_BY_ID',
         payload: gameId.data,
@@ -55,7 +54,6 @@ export function getGenres() {
 export function createGame(payload) {
   return async function () {
     const info = await axios.post(`/videogames`, payload);
-    console.log(payload)
     return {info};
   };
 }
@@ -63,12 +61,12 @@ export function createGame(payload) {
 export const deleteGame = (id) => {
   return async function(dispatch){
       try{
-          await axios.delete(`http://localhost:3001/videogames/${id}`)
+          await axios.delete(`/videogames/${id}`)
           return dispatch({
               type: 'DELETE_GAME',
           })
-      }catch(err){
-          console.log(err)
+      }catch(error){
+         console.log(error)
       }
   }
 }
@@ -76,12 +74,12 @@ export const deleteGame = (id) => {
 export const updateGame = (id, data) => {
   return async function(dispatch){
       try{
-          await axios.put(`http://localhost:3001/videogames/${id}`, data);
+          await axios.put(`/videogames/${id}`, data);
           return dispatch({
               type: 'UPDATE_GAME'
           })
-      }catch(err){
-          console.log(err);
+      }catch(error){
+          console.log(error);
       }
   }
 }
@@ -114,7 +112,6 @@ export function orderByRating(payload) {
   };
 }
  export function resetDetailPage() {
-   
    return {
      type: 'CLEAR_STATE',
    };
